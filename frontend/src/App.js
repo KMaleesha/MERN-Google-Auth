@@ -1,5 +1,5 @@
 import './App.css';
-import AppBar from './Component/AppBar';
+import AppBar from './Component/AppBar/AppBar';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
