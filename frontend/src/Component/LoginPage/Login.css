@@ -1,0 +1,28 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh
+}
+.card {
+    width: 400px;
+    height: auto;
+    padding: 2rem; 
+}
+.google-btn {
+    margin-top: 1rem;
+    background-color: #0d0d0d; /* Red */
+    color: white;
+}
+.google-icon{
+    margin-right: 1rem;
+    width: 20px;
+}
+.submit-btn{
+    margin-top: 1rem;
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+.signUp-link{
+    margin-top: 1rem;
+}
