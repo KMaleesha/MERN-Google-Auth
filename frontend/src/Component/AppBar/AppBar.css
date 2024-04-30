@@ -1,0 +1,11 @@
+.right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .profile-icon {
+    font-size: 40px;
+    color: white;
+  }
+  
