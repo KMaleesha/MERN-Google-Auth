@@ -9,20 +9,20 @@
     height: auto;
     padding: 2rem; 
 }
-.google-btn {
+/* .google-btn{
     margin-top: 1rem;
-    background-color: #0d0d0d; /* Red */
+    background-color: #0d0d0d;
     color: white;
-}
+} */
 .google-icon{
     margin-right: 1rem;
     width: 20px;
 }
-.submit-btn{
+/* .submit-btn{
     margin-top: 1rem;
-    background-color: #4caf50; /* Green */
+    background-color: hsl(122, 68%, 37%);
     color: white;
-}
+} */
 .signUp-link{
     margin-top: 1rem;
 }

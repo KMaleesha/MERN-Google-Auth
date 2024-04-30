@@ -3,7 +3,7 @@ import { Container, Typography, TextField, Button, Link, Grid, Card, CardContent
 import googleLogo from './googleLogo.png'
 
 import './Login.css'
-import { green } from '@mui/material/colors';
+import { green, red } from '@mui/material/colors';
 
 const Login = () => {
     return(
@@ -41,7 +41,8 @@ const Login = () => {
                                 type="submit"
                                 fullWidth
                                 color="inherit"
-                                // style={{ marginTop: '1rem', border:"green"}}
+                                style={{ marginTop: '1rem', backgroundColor: 'black', color: 'white'}}
+                                // style={{ marginTop: '1rem', backgroundColor: 'hsl(122, 68%, 37%)'}}
                                 >
                                 Sign In
                             </Button>
@@ -55,7 +56,7 @@ const Login = () => {
                             <Button className='google-btn'
                                 fullWidth
                                 color="inherit"
-                                style={{ marginTop: '1rem', border:"black"}}
+                                style={{ marginTop: '1rem', border:'1px solid black', borderRadius:'5px'}}
                                 startIcon={<img src={googleLogo} alt="Google Logo" className='google-icon' />}
                             >
                                 Sign In With Google
