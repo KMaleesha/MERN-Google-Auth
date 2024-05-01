@@ -6,6 +6,11 @@ import './Login.css'
 import { green, red } from '@mui/material/colors';
 
 const Login = () => {
+
+    const googleSignin = () => {
+        window.open("http://localhost:5000/auth/google", "_self");
+    };    
+
     return(
             <div className='login-page'>
                 <div className='form'>
@@ -58,6 +63,7 @@ const Login = () => {
                                 color="inherit"
                                 style={{ marginTop: '1rem', border:'1px solid black', borderRadius:'5px'}}
                                 startIcon={<img src={googleLogo} alt="Google Logo" className='google-icon' />}
+                                onClick={googleSignin}
                             >
                                 Sign In With Google
                             </Button>

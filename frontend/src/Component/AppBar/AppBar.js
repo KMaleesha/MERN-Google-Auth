@@ -8,12 +8,23 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './AppBar.css';
+import { navigate, useNavigate } from 'react-router-dom';
 
 export default function ButtonAppBar() {
+
+  const navigate = useNavigate('');
 
   function handleProfileClick() {
     // Handle the click event
     console.log('Profile clicked');
+  }
+
+  function loginPage() {
+    navigate('./login');
+  }
+
+  function homePage() {
+    navigate('./home');
   }
 
   return (
@@ -33,8 +44,11 @@ export default function ButtonAppBar() {
             FILE UPLOADER
           </Typography>
           <div className='right'>
-            <Button color="inherit">Login</Button>
-            <IconButton aria-label="profile" className="profile-icon">
+            <Button color="inherit" onClick={homePage}>Home</Button>
+            <Button color="inherit" onClick={loginPage}>Login</Button>
+            <IconButton aria-label="profile" className="profile-icon"
+              style={{color:'white'}}
+            >
               <AccountCircleIcon />
             </IconButton>
           </div>
