@@ -1,29 +1,26 @@
 import * as React from 'react';
 import { Button } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
+    function uploadFile(){
+        navigate("./fileupload");
+    }
 
     return (
         <div style={{ textAlign: 'center' }}>
             <h1>Login Success! Congratulations!!! Its Home</h1>
-            <label>
-                <input
-                    style={{ display: 'none' }}
-                    accept="image/*"
-                    id="upload-button"
-                    multiple
-                    type="file"
-                />
                 <Button
-                    variant="contained"
-                    color="default"
                     startIcon={<CloudUploadIcon />}
                     style={{ backgroundColor: 'black', color: 'white' }}
+                    onClick={uploadFile}
                 >
                     Upload
                 </Button>
-            </label>
         </div>
     )    
 }

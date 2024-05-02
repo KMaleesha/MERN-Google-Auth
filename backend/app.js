@@ -62,6 +62,7 @@ passport.use(new OAuth2Strategy({
 
         return done(null, user);
     } catch (error) {
+        console.error("OAuth2Strategy Error:", error);
         return done(error, null);
     }
 }));
@@ -72,6 +73,14 @@ app.get("/auth/google/callback", passport.authenticate("google", {
     successRedirect: "http://localhost:3000/home",
     failureRedirect: "http://localhost:3000/login"
 }));
+
+app.get("/login/success", async(req, res) => {
+    if(req.user){
+        res.status(200).json({message:"User Login", user:req.user})
+    }else{
+        res.status(400).json({message:"Not Authorized"})
+    }
+})
 
 const PORT = 5000;
 app.listen(PORT, () => {

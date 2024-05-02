@@ -9,15 +9,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './AppBar.css';
 import { navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 export default function ButtonAppBar() {
 
   const navigate = useNavigate('');
 
-  function handleProfileClick() {
-    // Handle the click event
-    console.log('Profile clicked');
-  }
+  const [userdata, setUserdata] = React.useState({});
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  console.log("response", userdata);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/login/success", {withCredentials: true, responseType: 'json'});
+      setUserdata(response.data.user)
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };  
+
+  React.useEffect(()=>{
+    getUser()
+  }, [])
 
   function loginPage() {
     navigate('./login');
@@ -25,6 +39,12 @@ export default function ButtonAppBar() {
 
   function homePage() {
     navigate('./home');
+  }
+
+  function logout() {
+    setUserdata({});
+    setLoggedIn(false);
+    navigate('/login');
   }
 
   return (
@@ -45,12 +65,21 @@ export default function ButtonAppBar() {
           </Typography>
           <div className='right'>
             <Button color="inherit" onClick={homePage}>Home</Button>
-            <Button color="inherit" onClick={loginPage}>Login</Button>
-            <IconButton aria-label="profile" className="profile-icon"
-              style={{color:'white'}}
-            >
-              <AccountCircleIcon />
-            </IconButton>
+            {
+              Object.keys(userdata).length > 0? (
+                <>
+                  <Button color="inherit" onClick={logout}>Logout</Button>
+                  <img src={userdata.image} className="profile-icon" style={{ borderRadius: '50%', width: '30px', height: '30px' }} />
+                
+                </>
+              ):
+              <>
+                <Button color="inherit" onClick={loginPage}>Login</Button>
+                <IconButton aria-label="profile" className="profile-icon" style={{color:'white'}}>
+                    <AccountCircleIcon />
+                  </IconButton>
+              </>
+            }
           </div>
         </Toolbar>
       </AppBar>
