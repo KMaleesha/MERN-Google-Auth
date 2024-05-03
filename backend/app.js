@@ -1,11 +1,13 @@
 require('dotenv').config();
-require('./db/conn');
+require('./db/conn').default;
 
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-google-oauth').OAuth2Strategy;
+const uploadRoute = require('./routes/profileUploadRouter');
+
 const userdb = require('./model/user');
 
 const clientId = process.env.CLIENT_ID;
@@ -79,8 +81,11 @@ app.get("/login/success", async(req, res) => {
         res.status(200).json({message:"User Login", user:req.user})
     }else{
         res.status(400).json({message:"Not Authorized"})
-    }
+    } 
 })
+
+// Routes
+app.use("/", uploadRoute);
 
 const PORT = 5000;
 app.listen(PORT, () => {

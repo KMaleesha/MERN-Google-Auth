@@ -2,14 +2,17 @@ import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { useNavigate } from 'react-router-dom';
-import ProfileUpload from '../Component/FileUpload/ProfileUpload'; 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 
 const Home = () => {
 
     const navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
+    const [title, setTitle] = React.useState('');
+    const [file , setFile] = React.useState('');
+    const [version, setVersion] = React.useState('');
 
     function uploadFile(){
         setOpen(true);
@@ -19,20 +22,34 @@ const Home = () => {
         setOpen(false);
     }
 
-    function saveDataToDB(){
-
+    function handleClose(){
+        setOpen(false);
     }
 
-    function handleClose(){
-        // Save data to the database
-        // Assuming you have a function saveDataToDB() that handles saving data to the database
-        saveDataToDB();
-    
-        // Navigate to another page
-        navigate('/home/fileupload');
-    
-        // Close the dialog
-        setOpen(false);
+    const submitFile = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("version", version);
+        formData.append("file", file);
+        console.log(title, file);
+
+        try {
+            const result = await axios.post(
+                "http://localhost:5000/upload-files",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    },
+                }
+            );
+            console.log(result);
+            navigate('/home/fileupload');
+        } catch (error) {
+            console.error("Error uploading file:", error);
+        }
     }
     
     return (
@@ -45,7 +62,6 @@ const Home = () => {
                 >
                     Upload
                 </Button>
-
                 <Dialog open={open} onClose={handleClose}
                         PaperProps={{
                             style: {
@@ -55,29 +71,41 @@ const Home = () => {
                                 textAlign: 'center'
                             }
                         }}
+                        
                 >
                     <DialogTitle><h4>Upload File</h4></DialogTitle>
-                    <DialogContent>
-                        <Box
-                            sx={{
-                                width: 500,
-                                maxWidth: '100%',
-                            }}
-                            >
-                            <TextField fullWidth label="File Name" id="fullWidth" />
-                        </Box>
-                        <br></br>
-                        <br></br>
-                        <input type="file" accept="application/pdf" />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={closePage} color="secondary">
-                            Close
-                        </Button>
-                        <Button onClick={handleClose} color="black">
-                            Submit
-                        </Button>
-                    </DialogActions>
+                    <form  onSubmit={submitFile}>
+                        <DialogContent>
+                            <Box
+                                sx={{
+                                    width: 500,
+                                    maxWidth: '100%',
+                                }}
+                                >
+                                <TextField fullWidth label="Title" id="fullWidth" 
+                                    required 
+                                    onChange={(e) => setTitle(e.target.value)} />
+                                <br></br>
+                                <br></br>
+                                <TextField fullWidth label="Version" id="fullWidth" 
+                                    required 
+                                    onChange={(e) => setVersion(e.target.value)} />
+                            </Box>
+                            <br></br>
+                            <br></br>
+                            <input type="file" accept="application/pdf" 
+                                required
+                                onChange={(e)=> setFile(e.target.files[0])} />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={closePage} color="secondary">
+                                Close
+                            </Button>
+                            <Button color="black" type='submit'>
+                                Submit
+                            </Button>
+                        </DialogActions>
+                    </form>
                 </Dialog>
         </div>
     )    

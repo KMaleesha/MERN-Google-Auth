@@ -7,11 +7,11 @@ mongoose.connect(DB, {
   // useUnifiedTopology: true
 });
 
-const db = mongoose.connection;
+const conn = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
+conn.on('error', console.error.bind(console, 'MongoDB connection error:'));
+conn.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-module.exports = db;
+module.exports = conn;

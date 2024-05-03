@@ -64,10 +64,10 @@ export default function ButtonAppBar() {
             FILE UPLOADER
           </Typography>
           <div className='right'>
-            <Button color="inherit" onClick={homePage}>Home</Button>
             {
               Object.keys(userdata).length > 0? (
                 <>
+                  <Button color="inherit" onClick={homePage}>Home</Button>
                   <Button color="inherit" onClick={logout}>Logout</Button>
                   <img src={userdata.image} className="profile-icon" style={{ borderRadius: '50%', width: '30px', height: '30px' }} />
                 

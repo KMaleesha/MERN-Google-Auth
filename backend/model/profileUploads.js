@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 
-const profielUploadSchema = new mongoose.Schema({
-    username: String,
+const profielUploadSchema = new mongoose.Schema(
+  {
+    title: String,
     file_name: String,
-    file_location: String,
-    dateTime: Date,
-    version: String
-    
-});
+    pdf: String,
+    fileLocation: String,
+    version: String,
+    date: { type: Date, default: Date.now },
+    username: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
-module.exports = mongoose.model('profile_uploads', profielUploadSchema);
+  },
+  {collation:"profileUploads"}
+);
+
+module.exports = mongoose.model('profileUploads', profielUploadSchema);
